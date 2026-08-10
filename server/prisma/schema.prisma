@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  patient
+  doctor
+  admin
+}
+
+enum AppointmentStatus {
+  pending_payment
+  confirmed
+  cancelled
+  completed
+  no_show
+}
+
+enum PaymentStatus {
+  created
+  paid
+  failed
+  refunded
+}
+
+model User {
+  id                 String    @id @default(uuid()) @db.Uuid
+  email              String    @unique
+  passwordHash       String    @map("password_hash")
+  role               Role
+  fullName           String    @map("full_name")
+  phone              String?
+  isVerified         Boolean   @default(false) @map("is_verified")
+  failedLoginCount   Int       @default(0) @map("failed_login_count") @db.SmallInt
+  lockedUntil        DateTime? @map("locked_until") @db.Timestamptz
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  doctor             Doctor?
+  appointments       Appointment[]   @relation("PatientAppointments")
+  refreshTokens      RefreshToken[]
+
+  @@map("users")
+}
+
+model Doctor {
+  id                     String   @id @default(uuid()) @db.Uuid
+  userId                 String   @unique @map("user_id") @db.Uuid
+  specialty              String?
+  slotDurationMinutes    Int      @default(20) @map("slot_duration_minutes") @db.SmallInt
+  consultationFeePaise   Int      @map("consultation_fee_paise")
+
+  user                   User                @relation(fields: [userId], references: [id])
+  availability           DoctorAvailability[]
+  appointments           Appointment[]
+
+  @@map("doctors")
+}
+
+model DoctorAvailability {
+  id         String   @id @default(uuid()) @db.Uuid
+  doctorId   String   @map("doctor_id") @db.Uuid
+  weekday    Int      @db.SmallInt // 0-6
+  startTime  DateTime @map("start_time") @db.Time
+  endTime    DateTime @map("end_time") @db.Time
+
+  doctor     Doctor   @relation(fields: [doctorId], references: [id])
+
+  @@map("doctor_availability")
+}
+
+model Appointment {
+  id          String             @id @default(uuid()) @db.Uuid
+  patientId   String             @map("patient_id") @db.Uuid
+  doctorId    String             @map("doctor_id") @db.Uuid
+  slotStart   DateTime           @map("slot_start") @db.Timestamptz
+  slotEnd     DateTime           @map("slot_end") @db.Timestamptz
+  status      AppointmentStatus  @default(pending_payment)
+  reminderSent Boolean           @default(false) @map("reminder_sent")
+  createdAt   DateTime           @default(now()) @map("created_at") @db.Timestamptz
+
+  patient     User      @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctor      Doctor    @relation(fields: [doctorId], references: [id])
+  payments    Payment[]
+
+  @@unique([doctorId, slotStart], name: "no_double_booking")
+  @@map("appointments")
+}
+
+model Payment {
+  id                  String        @id @default(uuid()) @db.Uuid
+  appointmentId       String        @map("appointment_id") @db.Uuid
+  provider            String
+  providerPaymentId   String        @map("provider_payment_id")
+  amountPaise         Int           @map("amount_paise")
+  status              PaymentStatus
+  createdAt           DateTime      @default(now()) @map("created_at") @db.Timestamptz
+
+  appointment         Appointment   @relation(fields: [appointmentId], references: [id])
+
+  @@map("payments")
+}
+
+model RefreshToken {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  tokenHash  String   @map("token_hash")
+  expiresAt  DateTime @map("expires_at") @db.Timestamptz
+  revoked    Boolean  @default(false)
+
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("refresh_tokens")
+}
