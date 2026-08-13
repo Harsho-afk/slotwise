@@ -1,0 +1,244 @@
+:root {
+  /* Color — a calm sage/ink clinic palette, deliberately not the
+     cream+terracotta or dark+neon defaults. */
+  --paper: #f5f6f2;
+  --paper-dim: #eaebe3;
+  --ink: #1d2b27;
+  --ink-soft: #52625d;
+  --sage: #3f6259;
+  --sage-deep: #2c453e;
+  --sage-tint: #c3d6cd;
+  --honey: #ce9a3e;
+  --rose: #b24a3f;
+  --line: #d3d6cd;
+
+  /* Type */
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius: 3px;
+  --shadow-card: 0 1px 2px rgba(29, 43, 39, 0.06), 0 4px 16px rgba(29, 43, 39, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0 0 0.4em;
+  color: var(--sage-deep);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  font-optical-sizing: auto;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+a {
+  color: var(--sage-deep);
+}
+
+p {
+  margin: 0 0 1em;
+  color: var(--ink-soft);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--honey);
+  outline-offset: 2px;
+}
+
+input,
+select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6em 0.75em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 0.3em;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.65em 1.3em;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: transform 0.06s ease, background 0.15s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--sage-deep);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--sage);
+}
+.btn-primary:disabled {
+  background: var(--sage-tint);
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn-secondary:hover {
+  border-color: var(--sage);
+}
+.btn-danger {
+  background: transparent;
+  border-color: var(--rose);
+  color: var(--rose);
+}
+.btn-danger:hover {
+  background: var(--rose);
+  color: #fff;
+}
+
+/* --- Layout shell --- */
+.shell {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.error-banner {
+  background: #fbeceb;
+  border: 1px solid var(--rose);
+  color: var(--rose);
+  padding: 0.75em 1em;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--ink-soft);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0.6em 0.7em;
+  border-bottom: 1px solid var(--line);
+}
+td {
+  padding: 0.7em;
+  border-bottom: 1px solid var(--paper-dim);
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.2em 0.55em;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tag-pending {
+  background: #f4ecd8;
+  color: #93701f;
+}
+.tag-confirmed {
+  background: #dfeae5;
+  color: var(--sage-deep);
+}
+.tag-cancelled,
+.tag-no_show {
+  background: #f6e2df;
+  color: var(--rose);
+}
+.tag-completed {
+  background: var(--paper-dim);
+  color: var(--ink-soft);
+}
