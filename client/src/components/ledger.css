@@ -1,0 +1,98 @@
+.ledger {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  overflow: hidden;
+}
+
+.ledger-margin-col {
+  width: 34px;
+  background: var(--paper-dim);
+  border-right: 1px solid var(--line);
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  border-bottom: 1px solid var(--paper-dim);
+}
+.ledger-row:last-child {
+  border-bottom: none;
+}
+
+.ledger-hole {
+  display: flex;
+  justify-content: center;
+  padding: 0.7em 0;
+  color: var(--line);
+}
+.ledger-hole::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.ledger-time {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  padding: 0.85em 0.9em;
+  color: var(--ink);
+  border-right: 1px dashed var(--line);
+}
+
+.ledger-action {
+  padding: 0.5em 0.9em;
+}
+
+.ledger-claim {
+  background: transparent;
+  border: 1px solid var(--sage);
+  color: var(--sage-deep);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  padding: 0.4em 0.9em;
+  border-radius: 2px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.ledger-claim:hover {
+  background: var(--sage-deep);
+  color: #fff;
+}
+.ledger-claim:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ledger-row.is-selected {
+  background: #f1f6f3;
+}
+.ledger-row.is-selected .ledger-time {
+  color: var(--sage-deep);
+  font-weight: 500;
+}
+
+/* The "stamped" confirmation mark — the one deliberate flourish */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  border: 1.5px solid var(--sage-deep);
+  border-radius: 3px;
+  padding: 0.25em 0.6em;
+  transform: rotate(-2deg);
+}
+
+.stamp-failed {
+  color: var(--rose);
+  border-color: var(--rose);
+}
