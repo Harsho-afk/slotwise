@@ -105,8 +105,6 @@ All routes are versioned under `/api/v1`.
 | GET    | `/admin/appointments`           | admin/doctor, filterable                 |
 | PATCH  | `/admin/appointments/:id`       | mark complete / no-show                  |
 
-Full schema and design notes are in [`BUILD_SPEC.md`](./BUILD_SPEC.md).
-
 ## Payments
 
 There's no live Razorpay/Stripe account behind this — it's a mock provider
