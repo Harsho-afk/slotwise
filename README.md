@@ -132,16 +132,3 @@ See `server/.env.example` and `client/.env.example`. The only one worth
 calling out: `VITE_API_URL` on the client is only needed if the client and
 API are deployed to different origins — in local dev, Vite proxies `/api`
 to the backend and it can stay blank.
-
-## Deployment
-
-See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for a concrete walkthrough (Render +
-managed Postgres), including a note on why the reminder cron needs to move
-to the host's scheduler if you deploy behind a scale-to-zero instance or
-multiple replicas.
-
-## Roadmap
-
-- Waitlist for fully booked slots
-- Recurring appointments
-- Multi-clinic support
