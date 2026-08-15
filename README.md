@@ -1,4 +1,4 @@
-# Clinic Appointment Manager
+# Slotwise
 
 A booking platform for a single clinic — patients book and manage their own
 appointments, doctors see their schedule, and admins run the place. Built as
