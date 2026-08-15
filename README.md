@@ -25,15 +25,14 @@ properly, not just wired up to work.
 
 ## Screenshots
 
-*(add a couple of screenshots here — booking page, admin dashboard)*
 
 ## Getting started
 
 Requires Node 20+ and PostgreSQL 16 (or Docker).
 
 ```bash
-git clone <repo-url>
-cd clinic-appointment-manager
+git clone https://github.com/Harsho-afk/slotwise
+cd slotwise
 ```
 
 **API**
@@ -148,7 +147,3 @@ multiple replicas.
 - Waitlist for fully booked slots
 - Recurring appointments
 - Multi-clinic support
-
-## License
-
-MIT
