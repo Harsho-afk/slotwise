@@ -23,9 +23,6 @@ properly, not just wired up to work.
   refresh tokens, account lockout after repeated failed logins, and
   double-booking prevented at the database level, not just in app code
 
-## Screenshots
-
-
 ## Getting started
 
 Requires Node 20+ and PostgreSQL 16 (or Docker).
