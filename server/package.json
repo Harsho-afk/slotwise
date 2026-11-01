@@ -24,7 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.14",
-    "zod": "^3.23.8"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.4",
